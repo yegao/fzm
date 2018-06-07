@@ -1,7 +1,6 @@
 {
   "name": "fzm",
   "version": "1.0.2",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,5 +10,15 @@
   "dependencies": {
     "axios": "^0.18.0",
     "qs": "^6.5.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yegao/fzm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yegao/fzm/issues"
+  },
+  "homepage": "https://github.com/yegao/fzm#readme",
+  "description": ""
 }
