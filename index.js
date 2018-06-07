@@ -1,4 +1,4 @@
-import restfuls from '../api';
+import restfuls from './libs/restfuls';
 
 export {
   restfuls

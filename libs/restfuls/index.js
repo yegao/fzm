@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import object from '../utils/object.js';
+import object from '../../../utils/object.js';
 let methods = ['get','post','options','delete','head','put','patch'],restfuls = {};
 for(let method of methods){
   restfuls[method] = (cors,...args) => {
