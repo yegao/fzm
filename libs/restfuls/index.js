@@ -21,7 +21,7 @@ for(let method of methods){
       _args = [args[0],{headers,...args[1]}];
     }
     else{
-      if(0<headers['Content-Type'].indexof('x-www-form-urlencoded')){
+      if(0<headers['Content-Type'].indexOf('x-www-form-urlencoded')){
         //不直接qs.stringify(args[1])是因为args[1]有可能是undefined {...undefined} === {}
         data = qs.stringify({...args[1]});
       }
