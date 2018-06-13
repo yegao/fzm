@@ -23,6 +23,8 @@ for(let method of methods){
     else{
       if(0<headers['Content-Type'].indexOf('x-www-form-urlencoded')){
         //不直接qs.stringify(args[1])是因为args[1]有可能是undefined {...undefined} === {}
+        console.log(args[1]);
+        console.log({...args[1]});
         data = qs.stringify({...args[1]});
       }
       _args = [args[0],data,{headers,...args[1]}];
@@ -33,6 +35,19 @@ for(let method of methods){
           throw new Error('返回的结果不规范');
         }
         if(res.data.code!=200){
+          var warn = document.createElement('div');
+          Object.assign(warn.style,{
+            position: 'fixed',
+            top: '10px',
+            right: '4px',
+            padding: '24px 16px 16px 16px',
+            border: '1px solid #EEEEEE',
+            background: '#FFFFFF',
+            zIndex: 99,
+            fontSize: '14px'
+          });
+          warn.innerHTML = res.data.message;
+          document.body.appendChild(warn);
           throw new Error(res.data.message);
         }
         resolve(res.data.data);
