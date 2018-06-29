@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
-    "notyf": "^2.0.1",
     "qs": "^6.5.2"
   },
   "devDependencies": {
