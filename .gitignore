@@ -4,5 +4,5 @@ node_modules
 /config
 
 package-lock.json
-/.postcssrc.jss
-/.babelrcs
+/.postcssrc.js
+/.babelrc
