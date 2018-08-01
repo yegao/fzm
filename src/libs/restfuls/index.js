@@ -3,10 +3,19 @@ import axios from 'axios'
 import qs from 'qs'
 import object from './../object'
 const notyf = new Notyf()
-const methods = ['get', 'post', 'options', 'delete', 'head', 'put', 'patch']; const restfuls = {}
+const methods = ['get', 'post', 'options', 'delete', 'head', 'put', 'patch']
+const restfuls = {
+  before () {
+    console.log('开始请求')
+  },
+  after () {
+    console.log('获得数据')
+  }
+}
 for (const method of methods) {
   restfuls[method] = (cors, ...args) => {
-    let _args, data
+    restfuls.before()
+    let _args
     const headers = {
       'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
       'Content-Type': 'application/x-www-form-urlencoded;'
@@ -30,6 +39,7 @@ for (const method of methods) {
       _args = [args[0], args[1], { ...args[2], headers }]
     }
     return axios[method](..._args).then((res) => {
+      restfuls.after();
       return new Promise((resolve) => {
         if (!object.hasOwnProps(res.data, 'code', 'data', 'message')) {
           notyf.alert('返回的结果不规范')
@@ -42,6 +52,7 @@ for (const method of methods) {
         resolve(res.data.data)
       })
     }, (err) => {
+      restfuls.after();
       notyf.alert(err)
       throw new Error(err)
     })

@@ -3,10 +3,17 @@ import axios from 'axios'
 import qs from 'qs'
 const notyf = new Notyf()
 const methods = ['get', 'post', 'options', 'delete', 'head', 'put', 'patch']
-
-const sp_restfuls = {}
+const sp_restfuls = {
+  before() {
+    console.log('开始请求')
+  },
+  after() {
+    console.log('获得数据')
+  }
+}
 for (const method of methods) {
   sp_restfuls[method] = (cors, ...args) => {
+    sp_restfuls.before()
     let _args
     const headers = {
       'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
@@ -29,10 +36,12 @@ for (const method of methods) {
       _args = [args[0], args[1], { ...args[2], headers }]
     }
     return axios[method](..._args).then((res) => {
+      sp_restfuls.after()
       return new Promise((resolve) => {
         resolve(res.data)
       })
     }, (err) => {
+      sp_restfuls.after()
       notyf.alert(err)
       throw new Error(err)
     })
