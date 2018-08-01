@@ -14,7 +14,6 @@ const restfuls = {
 }
 for (const method of methods) {
   restfuls[method] = (cors, ...args) => {
-    restfuls.before()
     let _args
     const headers = {
       'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
@@ -38,8 +37,9 @@ for (const method of methods) {
       }
       _args = [args[0], args[1], { ...args[2], headers }]
     }
+    restfuls.before(..._args)
     return axios[method](..._args).then((res) => {
-      restfuls.after();
+      restfuls.after(..._args)
       return new Promise((resolve) => {
         if (!object.hasOwnProps(res.data, 'code', 'data', 'message')) {
           notyf.alert('返回的结果不规范')
@@ -52,7 +52,7 @@ for (const method of methods) {
         resolve(res.data.data)
       })
     }, (err) => {
-      restfuls.after();
+      restfuls.after(..._args)
       notyf.alert(err)
       throw new Error(err)
     })

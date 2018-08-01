@@ -13,7 +13,6 @@ const sp_restfuls = {
 }
 for (const method of methods) {
   sp_restfuls[method] = (cors, ...args) => {
-    sp_restfuls.before()
     let _args
     const headers = {
       'Authorization': 'Bearer ' + sessionStorage.getItem('access_token'),
@@ -35,13 +34,14 @@ for (const method of methods) {
       }
       _args = [args[0], args[1], { ...args[2], headers }]
     }
+    sp_restfuls.before(..._args)
     return axios[method](..._args).then((res) => {
-      sp_restfuls.after()
+      sp_restfuls.after(..._args)
       return new Promise((resolve) => {
         resolve(res.data)
       })
     }, (err) => {
-      sp_restfuls.after()
+      sp_restfuls.after(..._args)
       notyf.alert(err)
       throw new Error(err)
     })
