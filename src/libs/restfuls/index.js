@@ -6,10 +6,10 @@ const notyf = new Notyf()
 const methods = ['get', 'post', 'options', 'delete', 'head', 'put', 'patch']
 const restfuls = {
   before () {
-    console.log('开始请求')
   },
   after () {
-    console.log('获得数据')
+  },
+  error () {
   }
 }
 for (const method of methods) {
@@ -39,20 +39,22 @@ for (const method of methods) {
     }
     restfuls.before(..._args)
     return axios[method](..._args).then((res) => {
-      restfuls.after(..._args)
       return new Promise((resolve) => {
         if (!object.hasOwnProps(res.data, 'code', 'data', 'message')) {
+          restfuls.error(..._args)
           notyf.alert('返回的结果不规范')
           throw new Error('返回的结果不规范')
         }
         if (res.data.code !== 200) {
+          restfuls.error(..._args)
           notyf.alert(res.data.message)
           throw new Error(res.data.message)
         }
+        restfuls.after(..._args)
         resolve(res.data.data)
       })
     }, (err) => {
-      restfuls.after(..._args)
+      restfuls.error(..._args)
       notyf.alert(err)
       throw new Error(err)
     })
