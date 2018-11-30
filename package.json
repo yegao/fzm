@@ -1,6 +1,6 @@
 {
   "name": "fzm",
-  "version": "1.5.3",
+  "version": "1.5.5",
   "main": "dist/main.js",
   "scripts": {
     "build": "node build/build.js",
@@ -105,5 +105,8 @@
     "url": "https://github.com/yegao/fzm/issues"
   },
   "homepage": "https://github.com/yegao/fzm#readme",
-  "description": ""
+  "description": "",
+  "files": [
+    "dist"
+  ]
 }

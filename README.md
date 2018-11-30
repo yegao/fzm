@@ -30,18 +30,11 @@ const api = {
 }
 ```
 
-### hook的使用
+### notyf的使用
 ```javascript
-import {hook} from 'fzm';
-hook.before = function(){
-  console.log("I will send a request")
-}
-hook.after = function(){
-  console.log("response sucess")
-}
-hook.error = function(){
-  throw new Error("error")
-}
+import {notyf} from 'fzm';
+notyf.confirm("成功!")
+notyf.alert("失败!")
 ```
 
 ### date的使用
@@ -68,10 +61,8 @@ fzm.notyf.alert("失败!")
 ## 功能完成情况
 - [x] ~~object~~
 - [x] ~~date~~
-- [x] ~~hook~~
+- [x] ~~notyf~~
 - [x] ~~restfuls~~
 - [x] ~~sp_restfuls~~  
-- [x] ~~on_restfuls~~
-- [x] ~~on_sp_restfuls~~  
 
 ## 发现BUG  
